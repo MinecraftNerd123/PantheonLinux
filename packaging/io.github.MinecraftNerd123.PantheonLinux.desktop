@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Name=Pantheon
+Comment=Visual macro editor and launcher for Roblox tower defence games in Sober
+Exec=pantheon
+Icon=io.github.MinecraftNerd123.PantheonLinux
+Terminal=false
+Categories=Game;Utility;
+Keywords=Roblox;Sober;macro;
+StartupWMClass=io.github.MinecraftNerd123.PantheonLinux

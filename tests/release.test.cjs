@@ -14,9 +14,9 @@ test('developer UI is generic and import is grouped immediately before refresh',
   assert.ok(html.includes('id="framework-icon"'));assert.ok(html.includes('id="framework-empty"'));
 });
 test('launcher and worker only use the internal engine and retain input/source guards',()=>{
-  assert.ok(read('Lib/framework/Worker.ahk').includes('EngineBridge.ahk'));
-  const bridge=read('Lib/EngineBridge.ahk');
-  assert.ok(bridge.includes('sender != this.Parent'));assert.ok(bridge.includes('parts[1] != this.Token'));
-  assert.ok(read('Lib/Pantheon.ahk').includes('Untrusted page source.'));
-  assert.ok(!bridge.includes('ManualSetup'));assert.ok(!read('Lib/Desktop.ahk').includes('FlowStore'));
+  const app=read('pantheon/app.py'),engine=read('pantheon/engine.py');
+  assert.ok(app.includes('Untrusted page source.')||app.includes("uri.split(\"#\")[0] != PAGE"));
+  assert.ok(app.includes('Message is too large.'));assert.ok(app.includes('Unknown hub action.'));
+  assert.ok(engine.includes('FlowRunner'));assert.ok(!engine.includes('subprocess'));
+  for(const p of ['pantheon','Lib/ui'])assert.ok(!fs.readdirSync(path.join(root,p)).some(f=>f.endsWith('.ahk')),p);
 });

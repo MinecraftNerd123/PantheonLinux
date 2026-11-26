@@ -7,7 +7,7 @@ Enable Developer mode at the bottom of Settings, then open Tools → Developer t
 ## Create the macro
 
 
-Choose New macro. A new definition has one empty Main sequence and no targets or settings. Set its name, game and bundled icon, choose its Starting sequence, and select Run once or Repeat main sequence. The macro gets its own dashboard entry. Definitions for authored macros use the shared runner rather than a generated AHK script.
+Choose New macro. A new definition has one empty Main sequence and no targets or settings. Set its name, game and bundled icon, choose its Starting sequence, and select Run once or Repeat main sequence. The macro gets its own dashboard entry. Definitions for authored macros use the shared runner rather than generated code.
 
 
 ## Pick coordinates and images
@@ -31,7 +31,7 @@ Open Macro settings in the builder. Controls include toggles, single checkboxes,
 A dropdown option may point to a captured image or saved coordinate. Pick click point captures an option's position directly; the target selector can instead use a named FindText image.
 
 
-For example, make a Stage dropdown with Stage 1 and Stage 2. Pick the click point for each option, then add Click selected setting option and choose Stage. On the dashboard, selecting Stage 2 makes that step use Stage 2's mapped image or position. There is no AHK function to modify.
+For example, make a Stage dropdown with Stage 1 and Stage 2. Pick the click point for each option, then add Click selected setting option and choose Stage. On the dashboard, selecting Stage 2 makes that step use Stage 2's mapped image or position. There is no script function to modify.
 
 
 ## Use flags and priorities
@@ -69,7 +69,7 @@ Choose Icon beside Macro name. The preview shows the bundled image. The saved de
 ## Share a configuration
 
 
-Export macro saves a JSON file or copies the configuration to the clipboard. It contains the macro definition, captured FindText patterns, settings controls, defaults, option mappings and starting sequence. It does not include the user's saved selections, private-server link, webhook URL, session token or machine paths. No AHK source, process command or arbitrary function reference can be imported.
+Export macro saves a JSON file or copies the configuration to the clipboard. It contains the macro definition, captured FindText patterns, settings controls, defaults, option mappings and starting sequence. It does not include the user's saved selections, private-server link, webhook URL, session token or machine paths. No script source, process command or arbitrary function reference can be imported.
 
 
 Another user chooses Import macro on the dashboard, pastes the text, reviews the name, game, run policy and action summary, then adds it to the dashboard. The imported macro has independent settings. Import cannot overwrite an existing identity. Authoring remains behind Developer mode; installing and running a reviewed configuration does not require enabling the editor.
@@ -124,7 +124,7 @@ Existing macros are not rewritten automatically. Their original steps continue t
 
 ### Read text into textbox
 
-Add this component to a sequence. Select the text region in Roblox, then select the textbox position. Choose digits, letters and digits, or plain text, and set accepted length limits. Digits mode rejects letters before removing punctuation. Spaces can be removed, and existing textbox content can be replaced. Invalid recognition stops with an error or continues without typing, according to the component setting. It does not submit automatically; add a key press or button click afterward. Recognition uses installed Windows OCR languages and visible Roblox client pixels; no external OCR service or clipboard is used.
+Add this component to a sequence. Select the text region in Roblox, then select the textbox position. Choose digits, letters and digits, or plain text, and set accepted length limits. Digits mode rejects letters before removing punctuation. Spaces can be removed, and existing textbox content can be replaced. Invalid recognition stops with an error or continues without typing, according to the component setting. It does not submit automatically; add a key press or button click afterward. Recognition uses Tesseract (English) on visible Roblox client pixels; no external OCR service or clipboard is used.
 
 ### Handle match result
 

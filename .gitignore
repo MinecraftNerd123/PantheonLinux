@@ -12,3 +12,7 @@ macros/**/placement-cache.ini
 
 /tests/data/backups/
 /tests/data/sessions/
+build-dir/
+repo/
+.flatpak-builder/
+pantheon/native/*.so

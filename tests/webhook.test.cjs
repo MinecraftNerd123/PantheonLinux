@@ -3,26 +3,11 @@ const test=require('node:test'),assert=require('node:assert/strict'),fs=require(
 const root=path.resolve(__dirname,'..'),read=p=>fs.readFileSync(path.join(root,p),'utf8');
 
 test('RunSettings implements Discord Components V2 structure and URL formatting',()=>{
-  const ahk=read('Lib/RunSettings.ahk');
-  assert.ok(ahk.includes('32768'));
-  assert.ok(ahk.includes('with_components=true'));
-  assert.ok(ahk.includes('"type", 17'));
-  assert.ok(ahk.includes('"type", 10'));
-  assert.ok(ahk.includes('"type", 14'));
-  assert.ok(ahk.includes('"type", 1'));
-  assert.ok(ahk.includes('"type", 2'));
-  assert.ok(ahk.includes('"style", 5'));
-  assert.ok(ahk.includes('allowed_mentions'));
-  assert.ok(ahk.includes('TestWebhook()'));
-  assert.ok(ahk.includes('Dispatch('));
-  assert.ok(ahk.includes('SendEvent('));
-  assert.ok(ahk.includes('DispatchEvent('));
-  assert.ok(!ahk.includes(';'));
-
-  const hubAhk=read('Lib/Pantheon.ahk');
-  assert.ok(hubAhk.includes('case "dispatchWebhook":'));
-  assert.ok(hubAhk.includes('case "testWebhook":'));
-  assert.ok(!hubAhk.includes(';'));
+  const py=read('pantheon/run_settings.py');
+  for(const s of ['32768','with_components=true','"type": 17','"type": 10','"type": 14','"type": 1}','"type": 2','"style": 5','allowed_mentions','def test_webhook','def dispatch'])assert.ok(py.includes(s),s);
+  const app=read('pantheon/app.py');
+  assert.ok(app.includes('action == "dispatchWebhook"'));
+  assert.ok(app.includes('action == "testWebhook"'));
 });
 
 test('run settings schema defines all supported event webhook and ping toggles',()=>{

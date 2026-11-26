@@ -26,19 +26,19 @@ Supplied definitions are `macros/<id>.json`. This release contains none. Authore
 
 
 
-Each run copies its validated definition and settings into `data/sessions/`, then starts the fixed `Lib/framework/Worker.ahk`. A configuration cannot choose the worker path or supply callbacks. Editing requires Developer mode and stopped state; stale revisions are rejected. Import review does not install or execute a configuration. Imports cannot overwrite an existing identity.
+Each run copies its validated definition and settings into `data/sessions/`, then runs the fixed engine in `pantheon/engine.py`. A configuration cannot choose the worker path or supply callbacks. Editing requires Developer mode and stopped state; stale revisions are rejected. Import review does not install or execute a configuration. Imports cannot overwrite an existing identity.
 
 
 
-`Schema.ahk` validates action trees, references, enums, coordinates, key names and timing limits. `Settings.ahk` validates controls, options, user values, flag comparisons and numeric references. `Packages.ahk` bounds JSON bytes, nesting and object count before parsing.
+`pantheon/framework/schema.py` validates action trees, references, enums, coordinates, key names and timing limits. `settings.py` validates controls, options, user values, flag comparisons and numeric references. `pantheon/packages.py` bounds JSON bytes, nesting and object count before parsing.
 
 
 
-`Runner.ahk` executes click-point, click, click-setting, move, walk, scroll, wait, delay, press, key, call, repeat, for-setting, if, retry, until, stop, camera and placements. Loops have execution/time budgets. Conditions combine image presence/absence and settings with AND/OR. Dropdown options map to named points or FindText images; priority loops follow the user's order.
+`pantheon/framework/runner.py` executes click-point, click, click-setting, move, walk, scroll, wait, delay, press, key, call, repeat, for-setting, if, retry, until, stop, camera and placements. Loops have execution/time budgets. Conditions combine image presence/absence and settings with AND/OR. Dropdown options map to named points or FindText images; priority loops follow the user's order.
 
 
 
-`RobloxEnvironment.ahk` checks the selected Roblox client and foreground focus before input. Held keys are released on cancellation, failure, pause and exit, including after focus loss. The internal bridge checks the parent window, message signature, session token and command allowlist. The UI accepts messages only from Pantheon's local page.
+`pantheon/framework/environment.py` checks the Sober window and foreground focus before input. Held keys are released on cancellation, failure, pause and exit, including after focus loss. The engine runs in-process and accepts only the start, pause and stop commands. The UI accepts messages only from Pantheon's local page.
 
 
 

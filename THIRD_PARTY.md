@@ -12,18 +12,17 @@ Author: Lucide Contributors. License: ISC, with upstream notices retained in `Li
 
 Original macro images and helmet icon are from `ThicoModee/Pantheon-Public`, base commit `fd1d46ea0ae812468ef7cbceb40fc8b0bc0a58d3`. Macro images are byte-identical copies; the helmet PNG is a format conversion of the original ICO.
 
-The outdated macro scripts have been removed. Bundled FindText and GDI+ helpers retain their upstream author and license notices in `Lib/vendor/FindText.ahk` and `Lib/vendor/Gdip_All.ahk`.
+The outdated macro scripts have been removed.
 
-## AHK WebView2 wrapper
+## FindText matching algorithm
 
-thqby/ahk2_lib, pinned to `559839b58353e31ec90796d1c2609c8f40b721f2`.
+`pantheon/native/findtext.c` reimplements the grayscale-threshold search from FindText by FeiYue (https://www.autohotkey.com/boards/viewtopic.php?f=83&t=116471, version 9.9) so that patterns captured with upstream Pantheon remain compatible. No AutoHotkey source is included.
 
-Wrapper/Promise/ComVar/JSON: `Lib/vendor/LICENSE` and source notices. Microsoft loader: `Lib/vendor/WEBVIEW2-NOTICE.md`.
+## Bundled in the Flatpak
+
+- grim 1.5.0, MIT, https://gitlab.freedesktop.org/emersion/grim
+- Tesseract 5.5.1, Apache-2.0, https://github.com/tesseract-ocr/tesseract
+- Leptonica 1.85.0, BSD-2-Clause, https://github.com/DanBloomberg/leptonica
+- tessdata_fast `eng` 4.1.0, Apache-2.0, https://github.com/tesseract-ocr/tessdata_fast
 
 UI reference: [LeniLilac/expeditions-macro](https://github.com/LeniLilac/expeditions-macro). The hub independently implements the screenshot placement workflow and layout; no source code or media from that repository is included.
-
-## Windows OCR wrapper
-
-Descolada OCR, copied from the legacy bundled library. Source: https://github.com/Descolada/OCR
-
-MIT license retained in `Lib/vendor/OCR-LICENSE`; upstream source notices retained in `Lib/vendor/OCR.ahk`. Uses local Windows.Media.Ocr.

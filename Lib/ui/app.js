@@ -143,7 +143,7 @@
 
     switch(action) {
 
-      case 'snapshot': return {config:preferences(JSON.parse(localStorage.getItem(store+'preferences')||JSON.stringify(hubDefaults()))),macros:catalog.map(m=>({id:m.id,installed:0,opened:0,seconds:0})),roblox:0,controls:JSON.parse(localStorage.getItem(store+'controls')||'{"resizeBind":"F1","startBind":"F2","pauseBind":"F4"}'),history:[{time:'—',message:'Browser preview. Open Pantheon.ahk for the native launcher.'}]};
+      case 'snapshot': return {config:preferences(JSON.parse(localStorage.getItem(store+'preferences')||JSON.stringify(hubDefaults()))),macros:catalog.map(m=>({id:m.id,installed:0,opened:0,seconds:0})),roblox:0,controls:JSON.parse(localStorage.getItem(store+'controls')||'{"resizeBind":"F1","startBind":"F2","pauseBind":"F4"}'),history:[{time:'—',message:'Browser preview. Run pantheon for the native launcher.'}]};
 
       case 'preferences': localStorage.setItem(store+'preferences',JSON.stringify(preferences(data)));return data;
 
@@ -153,7 +153,7 @@
 
       case 'saveRunSettings':localStorage.setItem(store+'run.'+macro,JSON.stringify(data));return {values:data};
 
-      default: throw Error('Open Pantheon.ahk to use this desktop feature.');
+      default: throw Error('Run pantheon to use this desktop feature.');
 
     }
 
@@ -583,7 +583,7 @@
 
       await refreshSnapshot(true);
 
-      if(!native){$('connection-banner').hidden=false;$('connection-banner').textContent='Browser preview · Open Pantheon.ahk to launch macros and connect your saved settings.';}
+      if(!native){$('connection-banner').hidden=false;$('connection-banner').textContent='Browser preview · Run pantheon to launch macros and connect your saved settings.';}
 
       route(location.hash.slice(1)||'dashboard');
 
