@@ -42,6 +42,12 @@
   const developerWorkspace=new DeveloperWorkspace();
   const controlInfo=[['resizeBind','Set up Roblox','Position and resize the game window.'],['startBind','Start / stop','Start or stop the selected macro.'],['pauseBind','Pause / resume','Temporarily pause or continue the macro.']];
 
+  function logLine(line) {
+    const match=/^(\d\d:\d\d:\d\d)\s+(.*)$/.exec(line)||[null,'',line],text=match[2].replace(/^Workflow /,'');
+    const tone=/^Victory detected/.test(text)?'good':/^Defeat detected/.test(text)?'bad':/^Error|could not|failed/i.test(text)?'bad':/Recovering|lost focus|retry|skipped/i.test(text)?'warn':/\+\d+ \(total/.test(text)?'info':'';
+    return `<span class="log-line${tone?' '+tone:''}"><time>${escapeHtml(match[1])}</time>${escapeHtml(text)}</span>`;
+  }
+
   function toast(message,error=false) {clearTimeout(toastTimer);$('toast').textContent=message;$('toast').classList.toggle('error',error);$('toast').hidden=false;toastTimer=setTimeout(()=>{$('toast').hidden=true;},error?9000:4300);}
 
   function request(action,data,macro=selected) {
@@ -291,11 +297,15 @@
 
     setText('phase-text',engine.state==='running'?'Macro running.':engine.state==='paused'?'Macro paused.':engine.state==='error'?'Run stopped with an error.':'Ready to run a saved setup.');
 
-    const logs=engine.logs||[];setText('current-task','Current task: '+(active&&logs.length?logs.at(-1).replace(/^\d\d:\d\d:\d\d\s+/,''):'none'));
+    const logs=engine.logs||[];setText('current-task','Current task: '+(active&&logs.length?logs.at(-1).replace(/^\d\d:\d\d:\d\d\s+/,'').replace(/^Workflow /,''):'none'));
 
     const secs=engine.seconds||0;setText('runtime',[Math.floor(secs/3600),Math.floor(secs/60)%60,secs%60].map(n=>String(n).padStart(2,'0')).join(':'));
 
     setText('victories',engine.wins||0);setText('defeats',engine.losses||0);
+    {const pill=$('state-pill'),state=engine.state||'ready';if(pill){pill.dataset.state=state;pill.textContent={running:'Running',paused:'Paused',error:'Error',initializing:'Starting',starting:'Starting'}[state]||'Ready';}
+     const wins=engine.wins||0,games=wins+(engine.losses||0),hours=secs/3600,parts=[];if(games)parts.push(Math.round(100*wins/games)+'% win rate');
+     for(const [name,value] of Object.entries(engine.counters||{}))if(hours>=0.05)parts.push(Math.round(value/hours).toLocaleString()+' '+name.toLowerCase()+'/hour');
+     setText('run-rates',parts.join(' · '));$('start-engine').classList.toggle('danger',active);}
     {const box=$('run-counters'),counters=engine.counters||{},key=JSON.stringify(counters);if(box&&box.dataset.key!==key){box.dataset.key=key;box.replaceChildren(...Object.entries(counters).map(([name,value])=>{const item=document.createElement('div'),label=document.createElement('span'),total=document.createElement('strong');label.textContent=name;total.textContent=Number(value).toLocaleString();item.append(label,total);return item;}));}}
 
     $('pin-roblox').checked=snapshot?.pinned!==0;$('pin-roblox').disabled=busy||!native||active;
@@ -304,7 +314,8 @@
 
     setText('game-empty-title',snapshot?.roblox?'Roblox is ready to pin.':'Roblox is not open. It will pin here automatically.');
 
-    const log=$('engine-log'),atEnd=log.scrollTop+log.clientHeight>=log.scrollHeight-12;setText('engine-log',logs.join('\n'));if(atEnd)log.scrollTop=log.scrollHeight;
+    const log=$('engine-log'),atEnd=log.scrollTop+log.clientHeight>=log.scrollHeight-12,logKey=logs.length+'|'+(logs.at(-1)||'');
+    if(log.dataset.key!==logKey){log.dataset.key=logKey;log.innerHTML=logs.map(logLine).join('');if(atEnd)log.scrollTop=log.scrollHeight;}
 
     setText('macro-settings-title',(m.name||m.id)+' setup');
 
