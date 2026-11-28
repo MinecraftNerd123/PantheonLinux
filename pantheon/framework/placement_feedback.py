@@ -37,6 +37,9 @@ def config(raw, definition=None):
     return raw
 
 
+UNCONFIRMED_ATTEMPTS = 3
+
+
 def _check(r, deadline):
     r.check()
     if now() >= deadline:
@@ -84,6 +87,7 @@ def _observe(r, c, deadline, messages=True):
 
 def place(r, action, c):
     deadline = now() + action["timeoutMs"]
+    unconfirmed = 0
     try:
         r.hold([r.play_keys["cancel"]], 30)
         _close(r, c)
@@ -115,7 +119,13 @@ def place(r, action, c):
             if inspected == "ended":
                 return -1
             if result != "money":
-                raise FlowImageError("Placement could not be confirmed and no money or limit message was detected. Check the panel image and saved coordinate.")
+                # A dropped click looks like this too; clicking the same spot again is safe because it selects the unit if one landed.
+                unconfirmed += 1
+                if unconfirmed >= UNCONFIRMED_ATTEMPTS:
+                    raise FlowImageError("Placement could not be confirmed and no money or limit message was detected. Check the panel image and saved coordinate.")
+                r.environment.trace("Placement retry", action["id"], "Not confirmed; trying again")
+                r.wait(c["retryMs"])
+                continue
             r.environment.trace("Placement waiting", action["id"], "Not enough money; retrying")
             r.wait(c["retryMs"])
     finally:

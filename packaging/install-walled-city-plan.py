@@ -19,19 +19,21 @@ def main():
     folder = os.path.join(data_dir(), "placements", "anime-adventures")
     os.makedirs(folder, exist_ok=True)
     path = os.path.join(folder, "plan.json")
-    route = json.load(open(os.path.join(HERE, "walled-city", "route.json")))
+    routes = [json.load(open(os.path.join(HERE, "walled-city", name))) for name in ("route.json", "route-takedowns.json")]
     start = {"delayMs": 0, "enabled": 1, "id": "start-game", "kind": "start", "repeat": 1, "slot": 1, "timeoutMs": 30000, "x": 0, "y": 0}
     plan = json.load(open(path)) if os.path.exists(path) else {
         "routes": [{"id": "shared", "name": "Shared setup", "parent": "", "team": 1, "teams": [{"steps": [dict(start)]} for _ in range(8)]}],
         "selectedRoute": "shared", "useShared": 0, "version": 1}
     if os.path.exists(path):
         shutil.copy(path, path + ".bak")
-    plan["routes"] = [r for r in plan["routes"] if r["id"] != "walled-city"] + [route]
+    ids = {route["id"] for route in routes}
+    plan["routes"] = [r for r in plan["routes"] if r["id"] not in ids] + routes
     with open(path + ".tmp", "w") as file:
         json.dump(plan, file, sort_keys=True, separators=(",", ":"))
     os.replace(path + ".tmp", path)
-    shutil.copy(os.path.join(HERE, "walled-city", "walled-city.png"), os.path.join(folder, "walled-city.png"))
-    print("Installed the Walled City (Infinite) placement plan in", folder)
+    for ident in ids:
+        shutil.copy(os.path.join(HERE, "walled-city", "walled-city.png"), os.path.join(folder, ident + ".png"))
+    print("Installed the Walled City (Infinite) and (Takedowns) placement plans in", folder)
 
 
 main()

@@ -75,7 +75,7 @@ def validate(raw, strict=False, capabilities=None):
                     "repeat": store.integer(action["repeat"], 1, 20, "Repeats"),
                     "slot": store.integer(action["slot"], 1, 6, "Unit slot"),
                     "targeting": store.integer(action.get("targeting", 0), 0, 15, "Targeting priority"),
-                    "timeoutMs": store.integer(action["timeoutMs"], 1000, 180000, "Placement timeout"),
+                    "timeoutMs": store.integer(action["timeoutMs"], 1000, 1800000, "Placement timeout"),
                     "x": store.integer(action["x"], 0, 799, "X"), "y": store.integer(action["y"], 0, 599, "Y"),
                 })
             if starts != 1:

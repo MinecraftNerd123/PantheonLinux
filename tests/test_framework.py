@@ -248,6 +248,44 @@ class FrameworkTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             schema.validate(bad)
 
+    def test_placement_retries_unconfirmed_clicks(self):
+        from pantheon.framework import placement_feedback
+
+        class Runner:
+            play_keys, result_targets = {"cancel": "Q", "slot-4": "4"}, []
+
+            def __init__(self, panel_after):
+                self.clicks, self.closed, self.panel_after = 0, False, panel_after
+                outer = self
+
+                class Env:
+                    def click(self, x, y):
+                        if (x, y) == (1, 1):
+                            outer.closed = True
+                        else:
+                            outer.clicks += 1
+
+                    def trace(self, *args):
+                        pass
+                self.environment = Env()
+
+            def check(self): pass
+            def hold(self, keys, ms): pass
+            def wait(self, ms): pass
+
+            def find(self, target, timeout):
+                return target == "panel" and self.clicks >= self.panel_after and not self.closed
+
+        config = {"panel": "panel", "money": "money", "limit": "", "unique": "", "closeX": 1, "closeY": 1, "retryMs": 250, "observeMs": 100}
+        action = {"timeoutMs": 10000, "slot": 4, "id": "demon", "x": 10, "y": 10}
+        runner = Runner(3)
+        self.assertEqual(placement_feedback.place(runner, action, config), 1)
+        self.assertEqual(runner.clicks, 3)
+        runner = Runner(99)
+        with self.assertRaises(FlowImageError):
+            placement_feedback.place(runner, action, config)
+        self.assertEqual(runner.clicks, 2 * placement_feedback.UNCONFIRMED_ATTEMPTS)
+
     def test_recorder_half_frame(self):
         from pantheon.recorder import _half
         frame = Frame(4, 2, bytes(range(24)))

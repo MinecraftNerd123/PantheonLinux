@@ -280,7 +280,7 @@
     "steps": [
      {
       "action": "delay",
-      "durationMs": 1500,
+      "durationMs": 4000,
       "id": "settle",
       "name": "Let the spawn camera settle"
      },
@@ -324,15 +324,15 @@
        "checks": [
         {
          "state": "present",
-         "target": "minimap-arrow-wide"
+         "target": "minimap-arrow"
         }
        ],
        "operator": "all"
       },
       "failure": "error",
-      "id": "coarse",
+      "id": "align",
       "intervalMs": 100,
-      "name": "Turn until the minimap arrow is near default",
+      "name": "Turn until the minimap arrow is exact",
       "steps": [
        {
         "action": "until",
@@ -348,7 +348,7 @@
         "failure": "continue",
         "id": "coarse-sweep",
         "intervalMs": 100,
-        "name": "Sweep one full turn",
+        "name": "Sweep until the minimap arrow is near default",
         "steps": [
          {
           "action": "rotate",
@@ -364,50 +364,79 @@
         "condition": {
          "checks": [
           {
-           "state": "absent",
+           "state": "present",
            "target": "minimap-arrow-wide"
           }
          ],
          "operator": "all"
         },
-        "elseSteps": [],
-        "id": "retry-camera",
-        "name": "Redo the top-down camera if a full turn missed",
-        "thenSteps": [
+        "elseSteps": [
          {
           "action": "call",
           "id": "redo-camera",
           "workflow": "camera-top-down"
          }
+        ],
+        "id": "near",
+        "name": "Fine turn when the arrow is near default",
+        "thenSteps": [
+         {
+          "action": "until",
+          "condition": {
+           "checks": [
+            {
+             "state": "present",
+             "target": "minimap-arrow"
+            }
+           ],
+           "operator": "all"
+          },
+          "failure": "continue",
+          "id": "fine",
+          "intervalMs": 100,
+          "name": "Turn until the minimap arrow is exact",
+          "steps": [
+           {
+            "action": "rotate",
+            "dx": 10,
+            "dy": 0,
+            "id": "fine-turn"
+           }
+          ],
+          "timeoutMs": 15000
+         },
+         {
+          "action": "if",
+          "condition": {
+           "checks": [
+            {
+             "state": "absent",
+             "target": "minimap-arrow"
+            }
+           ],
+           "operator": "all"
+          },
+          "elseSteps": [],
+          "id": "false-near",
+          "name": "Redo the camera and move past a false near match",
+          "thenSteps": [
+           {
+            "action": "call",
+            "id": "reset-camera",
+            "workflow": "camera-top-down"
+           },
+           {
+            "action": "rotate",
+            "dx": 210,
+            "dy": 0,
+            "id": "skip-false"
+           }
+          ]
+         }
         ]
        }
       ],
-      "timeoutMs": 150000
-     },
-     {
-      "action": "until",
-      "condition": {
-       "checks": [
-        {
-         "state": "present",
-         "target": "minimap-arrow"
-        }
-       ],
-       "operator": "all"
-      },
-      "failure": "error",
-      "id": "fine",
-      "intervalMs": 100,
-      "name": "Turn until the minimap arrow is exact",
-      "steps": [
-       {
-        "action": "rotate",
-        "dx": 10,
-        "dy": 0,
-        "id": "fine-turn"
-       }
-      ],
-      "timeoutMs": 30000
+      "timeoutMs": 180000
      },
      {
       "action": "rotate",
@@ -497,7 +526,7 @@
          }
         ],
         "filter": "none",
-        "height": 32,
+        "height": 26,
         "id": "reached-30",
         "min": 30,
         "thenSteps": [
@@ -507,9 +536,9 @@
           "result": "win"
          }
         ],
-        "width": 120,
-        "x": 150,
-        "y": 52
+        "width": 110,
+        "x": 330,
+        "y": 296
        },
        {
         "action": "tally",
@@ -787,6 +816,12 @@
    "place-units": {
     "name": "Place units",
     "steps": [
+     {
+      "action": "rotate",
+      "dx": 0,
+      "dy": 400,
+      "id": "re-steepen"
+     },
      {
       "action": "placements",
       "fallback": "error",
