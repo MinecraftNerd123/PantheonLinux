@@ -1147,7 +1147,7 @@ main {padding:26px 20px 24px;}
 .run-totals strong {font-size:19px;font-variant-numeric:tabular-nums;}
 
 
-#victories {color:#55b887;}#defeats {color:#d96770;}
+#victories {color:#55b887;}#defeats {color:#d96770;}.run-counters {display:contents;}.run-counters strong {color:#6fb6e8;}
 
 
 .workspace-status .engine-log-label {margin:0 0 9px;font-size:13px;}

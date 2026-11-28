@@ -58,11 +58,26 @@ make run
 | Registry settings | `~/.var/app/io.github.MinecraftNerd123.PantheonLinux/data/pantheon/settings.json` (Flatpak) or `~/.local/share/pantheon/` |
 | In-place ZIP updater | `flatpak update` |
 
+## Walled City Infinite macro
+
+`macros/macro-walled-city-infinite.json` plays Anime Adventures Walled City in Infinite mode and loops with Replay:
+
+1. On the vote screen it aligns the camera (fully top-down, then turns until the minimap arrow points straight down, so placements land in the same place every match) and clicks Yes until the match starts.
+2. Places Bulby (slot 2), then three Demon Girls (slot 4) next to the path junction at spawn, turning in-game **Auto** on for each Demon Girl and then for Bulby (key **T**).
+3. Waits for wave 30, opens Settings, scrolls to **Vote to Lose**, confirms **Vote**, and keeps retrying until the Defeat screen shows. As a backstop, from 12 minutes into the match it also votes once the wave counter reads 31 or more (three matching OCR reads), and it always votes at 25 minutes (about wave 50).
+4. On the Defeat screen it counts the match as a victory if the wave counter reached 30 and a defeat if it did not, adds the gems shown under the wave counter to the **Gems** total next to Victories and Defeats, then clicks Next, clicks through rewards, presses **Replay**, and repeats.
+
+Start it on the vote screen of a Walled City Infinite match, on the Defeat screen, or on the Return to lobby / Replay screen. Starting mid-match with units already placed stops at the first placement. Placements live in Placement setup under **Walled City (Infinite)**; `packaging/install-walled-city-plan.py` writes the default plan.
+
+Pantheon sets its virtual mouse to a flat acceleration profile on Hyprland so camera turns are exact (10 px of movement ≈ 1°).
+
 ## Roblox and controls
 
 Selecting a macro opens its workspace. Sober stays an independent window that Pantheon floats, resizes to an 800 × 600 client and moves over the live view. Switching away to another page moves Sober to the hidden `special:pantheon` workspace; unpinning or closing Pantheon restores its original floating, size, workspace and fullscreen state. Pantheon floats its own window at 1380 × 900 on start; set `PANTHEON_TILED=1` to keep it tiled.
 
-Defaults: F1 positions Roblox, F2 starts/stops and F4 pauses/resumes. They are registered as Hyprland binds only while Pantheon or Sober has focus, and removed otherwise. Input requires Sober to be focused; losing focus stops the macro and releases held keys.
+Defaults: F1 positions Roblox, F2 starts/stops and F4 pauses/resumes. They are registered as Hyprland binds only while Pantheon or Sober has focus, and removed otherwise. Input only reaches the focused window, so while a macro runs Pantheon focuses Sober again whenever something else takes focus (pause with F4 or stop from Pantheon to use the computer).
+
+In repeat mode an error no longer stops the macro: Pantheon logs it, runs the macro's `recover` sequence if it has one (Walled City votes to lose the broken match), and starts the next run. Five failed runs in a row stop it. The log and a half-size frame every 3 seconds of the last two runs are kept in `recordings/` in Pantheon's data folder (`~/.var/app/io.github.MinecraftNerd123.PantheonLinux/data/pantheon/recordings` for the Flatpak), with an `error.png` full screenshot when a run failed.
 
 Coordinate picking and image capture show a frozen capture overlay over Sober. Left click selects a point; drag selects a region; Escape cancels.
 

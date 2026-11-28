@@ -27,7 +27,7 @@ class FixtureEnvironment:
         self.runner, self.released = None, False
         self.moves, self.scrolls, self.found_after, self.max_held = [], [], {}, 0
         self.detect_after_scroll, self.real_time, self.waits, self.key_downs = False, False, 0, {}
-        self.results = []
+        self.results, self.tallies = [], []
 
     def check(self):
         self.checks += 1
@@ -48,6 +48,12 @@ class FixtureEnvironment:
 
     def move(self, x, y):
         self.moves.append([x, y])
+
+    def wake_pointer(self):
+        self.click(400, 300)
+
+    def tally(self, name, value):
+        self.tallies.append((name, value))
 
     def scroll(self, direction, ticks):
         self.scrolls.append([direction, ticks])
@@ -163,6 +169,23 @@ class FrameworkTests(unittest.TestCase):
         self.assertEqual(len(env.held), 0)
         self.assertEqual(len(env.moves), 1)
 
+    def test_until_runs_managed_upgrades(self):
+        class Managed:
+            ticks = closed = 0
+            def tick(self): Managed.ticks += 1
+            def close(self): Managed.closed += 1
+        self.example["workflows"]["wave"] = {"name": "Wave", "steps": [{"action": "until", "condition": image_condition("popup-close"),
+            "failure": "error", "id": "wave", "intervalMs": 100, "steps": [{"action": "scroll", "count": 1, "direction": "Up", "id": "s",
+            "intervalMs": 0, "ticks": 1}], "timeoutMs": 5000}]}
+        env = FixtureEnvironment()
+        env.detect_after_scroll = True
+        runner = FlowRunner(self.example, env)
+        runner.managed = Managed()
+        runner.started = int(time.monotonic() * 1000)
+        runner.execute("wave")
+        self.assertGreater(Managed.ticks, 0)
+        self.assertEqual(Managed.closed, 1)
+
     def test_retry_failure_continues(self):
         self.example["workflows"]["retry-failure"] = {"name": "Retry failure", "steps": [
             {"action": "retry", "attempts": 2, "condition": image_condition("popup-close"), "failure": "continue", "id": "retry", "intervalMs": 100,
@@ -181,6 +204,80 @@ class FrameworkTests(unittest.TestCase):
             self.run_flow("hold", env)
         self.assertEqual(env.held, {})
         self.assertTrue(env.released)
+
+    def test_rotate_step(self):
+        drags = []
+        self.example["workflows"]["turn"] = {"name": "Turn", "steps": [{"action": "rotate", "dx": 60, "dy": 0, "id": "turn"}]}
+        env = FixtureEnvironment()
+        env.drag = lambda dx, dy: drags.append((dx, dy))
+        self.run_flow("turn", env)
+        self.assertEqual(drags, [(60, 0)])
+        bad = copy.deepcopy(self.example)
+        bad["workflows"]["turn"]["steps"][0]["dx"] = 0
+        with self.assertRaises(ValueError):
+            schema.validate(bad)
+
+    def test_if_number_needs_three_agreeing_reads(self):
+        number = {"action": "if-number", "id": "wave", "x": 150, "y": 52, "width": 120, "height": 32, "filter": "none", "min": 30,
+                  "thenSteps": [{"action": "click-point", "button": "Left", "id": "hit", "x": 1, "y": 1}], "elseSteps": []}
+        self.example["workflows"]["wave"] = {"name": "Wave", "steps": [number]}
+        for reads, hits in (([30, 31, 30], 1), ([143, 12, 30], 0), ([None, 30, 30], 0)):
+            env = FixtureEnvironment()
+            queue = list(reads)
+            env.read_number = lambda *rect: queue.pop(0)
+            self.run_flow("wave", env)
+            self.assertEqual(len(env.clicks), hits)
+        bad = copy.deepcopy(self.example)
+        bad["workflows"]["wave"]["steps"][0]["width"] = 700
+        with self.assertRaises(ValueError):
+            schema.validate(bad)
+
+    def test_tally_and_count_result(self):
+        self.example["workflows"]["end"] = {"name": "End", "steps": [
+            {"action": "tally", "id": "gems", "x": 112, "y": 80, "width": 86, "height": 26, "filter": "light", "counter": "Gems"},
+            {"action": "count-result", "id": "won", "result": "win"}]}
+        for reads, expected in (([242, 242, 242], [("Gems", 242)]), ([242, 24, 242], [("Gems", 242)]), ([1, 2, 3], [])):
+            env = FixtureEnvironment()
+            queue = list(reads)
+            env.read_number = lambda *args: queue.pop(0)
+            self.run_flow("end", env)
+            self.assertEqual(env.tallies, expected)
+            self.assertEqual(env.results, [True])
+        bad = copy.deepcopy(self.example)
+        bad["workflows"]["end"]["steps"][1]["result"] = "draw"
+        with self.assertRaises(ValueError):
+            schema.validate(bad)
+
+    def test_recorder_half_frame(self):
+        from pantheon.recorder import _half
+        frame = Frame(4, 2, bytes(range(24)))
+        self.assertEqual(_half(frame).data, bytes([0, 1, 2, 6, 7, 8]))
+
+    def test_engine_recovers_in_repeat_mode(self):
+        from pantheon import engine
+        calls = []
+
+        class FakeRecorder:
+            def __init__(self, *args): pass
+            log = snapshot = finish = lambda self, *args: None
+
+        def workflow(definition, values, placements, controls, address, ident):
+            calls.append(ident)
+            if ident == "main" and calls.count("main") < 3:
+                raise FlowImageError("boom")
+            if calls.count("main") >= 3:
+                raise FlowStop("Workflow stopped.")
+
+        saved = engine.Recorder, engine.HubEngine._workflow
+        engine.Recorder, engine.HubEngine._workflow = FakeRecorder, classmethod(lambda cls, *a: workflow(*a))
+        try:
+            definition = {"name": "Fake", "entry": "main", "runMode": "repeat", "workflows": {"main": {}, "recover": {}}}
+            engine.HubEngine.thread = object()
+            engine.HubEngine._run(definition, {}, None, {}, "0x1")
+        finally:
+            engine.Recorder, engine.HubEngine._workflow = saved
+            engine.HubEngine.thread = None
+        self.assertEqual(calls, ["main", "recover", "main", "recover", "main"])
 
     def test_schema_rejects_bad_input(self):
         bad = copy.deepcopy(self.definition)

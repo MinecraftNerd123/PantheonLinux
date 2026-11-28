@@ -5,15 +5,17 @@ import time
 import uuid
 
 from pantheon import jsonutil, paths
-from pantheon.errors import FlowStop, message
+from pantheon.errors import FlowStop, GameClosed, message
 from pantheon.framework import placement_plan, play_controls, schema
 from pantheon.framework.environment import RobloxEnvironment
 from pantheon.framework.runner import FlowRunner
 from pantheon.mount import GameMount
 from pantheon.platform import hypr
 from pantheon.platform.uinput import device
+from pantheon.recorder import Recorder
 
 RELEASE_KEYS = ["W", "A", "S", "D", "Space", "Shift", "Control", "LButton", "RButton"]
+MAX_FAILURES = 5
 
 
 class HubEngine:
@@ -21,11 +23,13 @@ class HubEngine:
     thread = None
     runner = None
     environment = None
+    recorder = None
     mode = ""
     folder = ""
     started_at = 0.0
     elapsed = 0
     wins = losses = 0
+    counters = {}
     logs = collections.deque(maxlen=200)
     paused = threading.Event()
     cancelled = threading.Event()
@@ -46,6 +50,8 @@ class HubEngine:
     def log(cls, text):
         line = time.strftime("%H:%M:%S") + "  " + text
         cls.logs.append(line)
+        if cls.recorder:
+            cls.recorder.log(line)
         if cls.folder:
             try:
                 with open(os.path.join(cls.folder, "log.txt"), "a", encoding="utf-8") as file:
@@ -80,6 +86,7 @@ class HubEngine:
             device().open()
             cls.logs.clear()
             cls.wins = cls.losses = 0
+            cls.counters = {}
             cls.paused.clear()
             cls.cancelled.clear()
             cls.state_value = "starting"
@@ -114,8 +121,14 @@ class HubEngine:
         cls.log("Victory detected." if won else "Defeat detected.")
 
     @classmethod
+    def _tally(cls, name, value):
+        cls.counters[name] = cls.counters.get(name, 0) + value
+        cls.log("%s +%d (total %d)." % (name, value, cls.counters[name]))
+
+    @classmethod
     def _workflow(cls, definition, values, placements, controls, address, ident):
         environment = RobloxEnvironment(hypr(), address, cls.log, cls._result, cls._gate)
+        environment.tally_callback = cls._tally
         runner = FlowRunner(definition, environment, values)
         if placements:
             runner.placement_data = placement_plan.validate(placements)
@@ -127,14 +140,57 @@ class HubEngine:
             cls.runner = None
 
     @classmethod
+    def _origin(cls):
+        environment = cls.environment
+        return (environment.left, environment.top) if environment and environment.left else None
+
+    @classmethod
+    def _attempt(cls, definition, values, placements, controls, address, repeat, failures):
+        cls.recorder = Recorder(definition["name"], cls._origin)
+        try:
+            cls._workflow(definition, values, placements, controls, address, definition["entry"])
+            cls.recorder.finish("completed")
+            return 0
+        except FlowStop:
+            cls.recorder.finish("stopped")
+            raise
+        except GameClosed as err:
+            cls.recorder.finish("error: " + message(err))
+            raise
+        except Exception as err:
+            cls.recorder.snapshot("error")
+            failures += 1
+            if not repeat or failures >= MAX_FAILURES:
+                cls.recorder.finish("error: " + message(err))
+                raise
+            cls.log("Error: " + message(err))
+            cls.log("Recovering (%d of %d failures in a row)." % (failures, MAX_FAILURES))
+            for _ in range(60):
+                cls._gate()
+                time.sleep(0.05)
+            if "recover" in definition["workflows"]:
+                try:
+                    cls._workflow(definition, values, placements, controls, address, "recover")
+                except (FlowStop, GameClosed):
+                    raise
+                except Exception as again:
+                    cls.log("Recovery failed: " + message(again))
+            cls.recorder.finish("error: " + message(err) + " (recovered)")
+            return failures
+        finally:
+            cls.recorder.finish("stopped")
+            cls.recorder = None
+
+    @classmethod
     def _run(cls, definition, values, placements, controls, address):
         cls.state_value = "running"
         failed = False
         try:
             cls.log("Running data macro: " + definition["name"])
+            repeat, failures = definition.get("runMode", "once") == "repeat", 0
             while True:
-                cls._workflow(definition, values, placements, controls, address, definition["entry"])
-                if definition.get("runMode", "once") != "repeat":
+                failures = cls._attempt(definition, values, placements, controls, address, repeat, failures)
+                if not repeat:
                     break
                 for _ in range(5):
                     cls._gate()
@@ -206,5 +262,5 @@ class HubEngine:
             cls.started_at = 0
         active = 1 if cls.busy() else 0
         seconds = int(time.monotonic() - cls.started_at) if cls.started_at and active else cls.elapsed
-        return {"active": active, "logs": list(cls.logs)[-20:], "losses": cls.losses, "mode": cls.mode, "seconds": seconds,
+        return {"active": active, "logs": list(cls.logs)[-20:], "losses": cls.losses, "counters": dict(cls.counters), "mode": cls.mode, "seconds": seconds,
                 "state": cls.state(), "wins": cls.wins}

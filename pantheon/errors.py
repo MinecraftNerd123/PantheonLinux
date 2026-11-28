@@ -10,6 +10,10 @@ class FlowStop(PantheonError):
     pass
 
 
+class GameClosed(PantheonError):
+    pass
+
+
 class FlowLoopTimeout(PantheonError):
     def __init__(self, owner):
         super().__init__("Image loop timed out.")

@@ -1,0 +1,190 @@
+{
+ "id": "walled-city",
+ "name": "Walled City (Infinite)",
+ "parent": "",
+ "team": 1,
+ "teams": [
+  {
+   "steps": [
+    {
+     "delayMs": 0,
+     "enabled": 0,
+     "id": "start-game",
+     "kind": "start",
+     "repeat": 1,
+     "slot": 1,
+     "timeoutMs": 180000,
+     "x": 0,
+     "y": 0
+    },
+    {
+     "autoUpgrade": 0,
+     "delayMs": 0,
+     "enabled": 1,
+     "id": "bulby",
+     "kind": "place",
+     "repeat": 1,
+     "slot": 2,
+     "timeoutMs": 180000,
+     "x": 452,
+     "y": 231
+    },
+    {
+     "autoUpgrade": 1,
+     "delayMs": 0,
+     "enabled": 1,
+     "id": "demon-1",
+     "kind": "place",
+     "repeat": 1,
+     "slot": 4,
+     "timeoutMs": 180000,
+     "x": 360,
+     "y": 300
+    },
+    {
+     "autoUpgrade": 1,
+     "delayMs": 0,
+     "enabled": 1,
+     "id": "demon-2",
+     "kind": "place",
+     "repeat": 1,
+     "slot": 4,
+     "timeoutMs": 180000,
+     "x": 360,
+     "y": 345
+    },
+    {
+     "autoUpgrade": 1,
+     "changeTargeting": 0,
+     "delayMs": 500,
+     "enabled": 1,
+     "id": "bulby-auto",
+     "kind": "reconfigure",
+     "placement": "bulby",
+     "repeat": 1,
+     "slot": 2,
+     "timeoutMs": 180000,
+     "x": 452,
+     "y": 231
+    },
+    {
+     "autoUpgrade": 1,
+     "delayMs": 0,
+     "enabled": 1,
+     "id": "demon-3",
+     "kind": "place",
+     "repeat": 1,
+     "slot": 4,
+     "timeoutMs": 180000,
+     "x": 440,
+     "y": 370
+    }
+   ]
+  },
+  {
+   "steps": [
+    {
+     "delayMs": 0,
+     "enabled": 0,
+     "id": "start-game",
+     "kind": "start",
+     "repeat": 1,
+     "slot": 1,
+     "timeoutMs": 180000,
+     "x": 0,
+     "y": 0
+    }
+   ]
+  },
+  {
+   "steps": [
+    {
+     "delayMs": 0,
+     "enabled": 0,
+     "id": "start-game",
+     "kind": "start",
+     "repeat": 1,
+     "slot": 1,
+     "timeoutMs": 180000,
+     "x": 0,
+     "y": 0
+    }
+   ]
+  },
+  {
+   "steps": [
+    {
+     "delayMs": 0,
+     "enabled": 0,
+     "id": "start-game",
+     "kind": "start",
+     "repeat": 1,
+     "slot": 1,
+     "timeoutMs": 180000,
+     "x": 0,
+     "y": 0
+    }
+   ]
+  },
+  {
+   "steps": [
+    {
+     "delayMs": 0,
+     "enabled": 0,
+     "id": "start-game",
+     "kind": "start",
+     "repeat": 1,
+     "slot": 1,
+     "timeoutMs": 180000,
+     "x": 0,
+     "y": 0
+    }
+   ]
+  },
+  {
+   "steps": [
+    {
+     "delayMs": 0,
+     "enabled": 0,
+     "id": "start-game",
+     "kind": "start",
+     "repeat": 1,
+     "slot": 1,
+     "timeoutMs": 180000,
+     "x": 0,
+     "y": 0
+    }
+   ]
+  },
+  {
+   "steps": [
+    {
+     "delayMs": 0,
+     "enabled": 0,
+     "id": "start-game",
+     "kind": "start",
+     "repeat": 1,
+     "slot": 1,
+     "timeoutMs": 180000,
+     "x": 0,
+     "y": 0
+    }
+   ]
+  },
+  {
+   "steps": [
+    {
+     "delayMs": 0,
+     "enabled": 0,
+     "id": "start-game",
+     "kind": "start",
+     "repeat": 1,
+     "slot": 1,
+     "timeoutMs": 180000,
+     "x": 0,
+     "y": 0
+    }
+   ]
+  }
+ ]
+}

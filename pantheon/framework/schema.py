@@ -5,7 +5,7 @@ from pantheon.framework.base import enum, identifier, integer, keys, reference, 
 
 ACTIONS = ["click-point", "click", "click-setting", "move", "walk", "scroll", "wait", "delay", "press", "key", "call", "repeat",
            "for-setting", "if", "retry", "until", "stop", "camera", "placements", "outcome", "click-wait", "scroll-option",
-           "dismiss", "setting-call", "ocr-input", "match-result"]
+           "dismiss", "setting-call", "ocr-input", "match-result", "rotate", "if-number", "tally", "count-result"]
 ICONS = ["pantheon", "dungeons", "gems", "gold", "limit", "summer", "progressive", "raids", "challenges", "winter"]
 ALPHABET = "0123456789+/ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
 _PART = re.compile(r"^<[^<>]{0,64}>\*(\d{1,3})\$(\d{1,3})\.([0-9+/A-Za-z]+)$")
@@ -215,6 +215,30 @@ def _step(raw, step, total, depth):
         integer(step["zoomIn"], 1, 50, "Zoom in ticks")
         integer(step["zoomOut"], 1, 50, "Zoom out ticks")
         integer(step["tilt"], 30, 299, "Camera tilt")
+    elif action == "rotate":
+        keys(step, "id|action|dx|dy")
+        integer(step["dx"], -800, 800, "Horizontal camera movement")
+        integer(step["dy"], -600, 600, "Vertical camera movement")
+        if step["dx"] == 0 and step["dy"] == 0:
+            raise ValueError("Rotate camera needs a horizontal or vertical movement.")
+    elif action in ("if-number", "tally"):
+        keys(step, "id|action|x|y|width|height|filter|" + ("min|thenSteps|elseSteps" if action == "if-number" else "counter"))
+        integer(step["x"], 0, 799, "Number region X")
+        integer(step["y"], 0, 599, "Number region Y")
+        integer(step["width"], 4, 800 - step["x"], "Number region width")
+        integer(step["height"], 4, 600 - step["y"], "Number region height")
+        enum(step["filter"], ["none", "light"], "number text filter")
+        if action == "tally":
+            text(step["counter"], 24, "counter name")
+            if not step["counter"].strip():
+                raise ValueError("Invalid counter name.")
+        else:
+            integer(step["min"], 0, 999999, "Minimum number")
+            steps(raw, step["thenSteps"], total, depth + 1)
+            steps(raw, step["elseSteps"], total, depth + 1)
+    elif action == "count-result":
+        keys(step, "id|action|result")
+        enum(step["result"], ["win", "loss"], "counted result")
     elif action == "placements":
         keys(step, "id|action|route|fallback|setting")
         enum(step["fallback"], ["shared", "error"], "placement fallback")

@@ -147,6 +147,13 @@ class Hyprland:
     def move_cursor(self, x, y):
         self.dispatch("movecursor %d %d" % (x, y), "hl.dsp.cursor.move({x=%d, y=%d})" % (x, y), "move the cursor")
 
+    def flat_pointer(self, name):
+        if self.lua:
+            self.eval("hl.device({name=%s, accel_profile=\"flat\", sensitivity=0})" % _lua(name), "configure the virtual pointer")
+        else:
+            self._check(self.request("keyword device[%s]:accel_profile flat" % name), "configure the virtual pointer")
+            self.request("keyword device[%s]:sensitivity 0" % name)
+
     def binds(self):
         return self.query("binds")
 

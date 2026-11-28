@@ -61,6 +61,12 @@ class VirtualInput:
                 raise InputUnavailable("Could not create the virtual input device: " + err.strerror) from None
             self.fd = fd
         time.sleep(0.4)
+        try:
+            from pantheon.platform import hypr
+            for name in ("pantheon-virtual-input-1", "pantheon-virtual-input"):
+                hypr().flat_pointer(name)
+        except Exception:
+            pass
 
     def close(self):
         with self.lock:

@@ -2,7 +2,7 @@ import math
 import time
 
 from pantheon import findtext, ocr, paths
-from pantheon.errors import FlowImageError
+from pantheon.errors import FlowImageError, GameClosed
 from pantheon.framework import base
 from pantheon.platform import capture
 from pantheon.platform.uinput import device
@@ -16,6 +16,9 @@ class RobloxEnvironment:
         self.held, self.paused_keys = {}, []
         self.input = device()
         self.left = self.top = 0
+        self.last_move = None
+        self.refocused = 0.0
+        self.tally_callback = None
         self._frame, self._frame_time = None, 0.0
 
     def _client(self):
@@ -29,12 +32,29 @@ class RobloxEnvironment:
             self.gate()
         client, focused = self._client()
         if not client or client.get("class") != paths.GAME_CLASS:
-            raise RuntimeError("The workflow's Roblox client is unavailable.")
+            raise GameClosed("Roblox was closed, so the macro stopped.")
         if not focused:
-            raise RuntimeError("Workflow stopped because Roblox lost focus.")
+            client = self._refocus()
         if list(client["size"]) != [800, 600]:
             raise RuntimeError("The workflow requires an 800 x 600 Roblox client.")
         self.left, self.top = client["at"]
+
+    def _refocus(self):
+        # Input only reaches the focused window, so take focus back instead of stopping.
+        deadline = time.monotonic() + 3
+        while time.monotonic() < deadline:
+            self.hypr.focus(self.address)
+            time.sleep(0.1)
+            client, focused = self._client()
+            if focused:
+                if time.monotonic() - self.refocused > 30:
+                    self.log("Roblox lost focus; focused it again.")
+                self.refocused = time.monotonic()
+                if self.last_move:
+                    self.hypr.move_cursor(client["at"][0] + self.last_move[0], client["at"][1] + self.last_move[1])
+                self._invalidate()
+                return client
+        raise RuntimeError("Workflow stopped because Roblox could not be focused.")
 
     def _invalidate(self):
         self._frame = None
@@ -57,6 +77,17 @@ class RobloxEnvironment:
         if not found:
             return 0
         return {"x": found[0]["x"] + target["offsetX"], "y": found[0]["y"] + target["offsetY"]}
+
+    def read_number(self, x, y, width, height, filter="none"):
+        self.check()
+        try:
+            return ocr.read_number(self.frame(True).crop(x, y, width, height), filter)
+        except (RuntimeError, OSError):
+            return None
+
+    def tally(self, name, value):
+        if self.tally_callback:
+            self.tally_callback(name, value)
 
     def read_text(self, step):
         self.check()
@@ -84,7 +115,16 @@ class RobloxEnvironment:
         base.integer(x, 0, 799, "Mouse X")
         base.integer(y, 0, 599, "Mouse Y")
         self._invalidate()
-        self.hypr.move_cursor(self.left + x, self.top + y)
+        if "RButton" in self.held and self.last_move:
+            dx, dy = x - self.last_move[0], y - self.last_move[1]
+            while dx or dy:
+                sx, sy = max(-20, min(20, dx)), max(-20, min(20, dy))
+                self.input.relative(sx, sy)
+                dx, dy = dx - sx, dy - sy
+                time.sleep(0.004)
+        else:
+            self.hypr.move_cursor(self.left + x, self.top + y)
+        self.last_move = (x, y)
         self.check()
 
     def click(self, x, y, button="Left"):
@@ -95,17 +135,44 @@ class RobloxEnvironment:
             self.move(x, y)
             nudge = 1 if x < 799 else -1
             self.input.relative(nudge, 0)
+            time.sleep(0.03)
+            self.input.relative(-nudge, 0)
+            time.sleep(0.03)
             self.hypr.move_cursor(self.left + x, self.top + y)
+            self.last_move = (x, y)
+            time.sleep(0.06)
             self.check()
             self.held[key] = True
             self.input.key(key, True)
-            time.sleep(0.012)
+            time.sleep(0.04)
             self.input.key(key, False)
             self._invalidate()
             self.sleep(50)
             self.check()
         finally:
             self.key(key, False)
+
+    def drag(self, dx, dy):
+        self.move(400, 300)
+        try:
+            self.key("RButton", True)
+            self.sleep(60)
+            steps = max(1, (max(abs(dx), abs(dy)) + 9) // 10)
+            sent_x = sent_y = 0
+            for i in range(1, steps + 1):
+                tx, ty = dx * i // steps, dy * i // steps
+                self.input.relative(tx - sent_x, ty - sent_y)
+                sent_x, sent_y = tx, ty
+                self.sleep(8)
+            self.sleep(60)
+        finally:
+            self.key("RButton", False)
+        self.check()
+        self.wake_pointer()
+
+    def wake_pointer(self):
+        # Sober drops the first left click after a right-button camera drag; spend it on the character.
+        self.click(400, 300)
 
     def scroll(self, direction, ticks):
         self.check()
@@ -131,6 +198,9 @@ class RobloxEnvironment:
                 self.input.key(key, False)
             finally:
                 self.held.pop(key, None)
+            if key == "RButton" and self.last_move:
+                time.sleep(0.05)
+                self.hypr.move_cursor(self.left + self.last_move[0], self.top + self.last_move[1])
 
     def progress(self, rect):
         self.check()

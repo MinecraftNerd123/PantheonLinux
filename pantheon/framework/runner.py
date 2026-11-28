@@ -121,6 +121,41 @@ class FlowRunner:
             for key in reversed(pressed):
                 self.environment.key(key, False)
 
+    def wait_managed(self, milliseconds):
+        if not self.managed:
+            self.wait(milliseconds)
+            return
+        started = now()
+        while True:
+            self.managed.tick()
+            remaining = milliseconds - (now() - started)
+            if remaining <= 0:
+                self.check()
+                return
+            self.wait(min(25, remaining))
+
+    def number_at_least(self, step):
+        # OCR misreads are common, so every one of three reads must agree.
+        for attempt in range(3):
+            if attempt:
+                self.wait(300)
+            value = self.environment.read_number(step["x"], step["y"], step["width"], step["height"], step["filter"])
+            if value is None or value < step["min"]:
+                return False
+        return True
+
+    def tally(self, step):
+        reads = []
+        for attempt in range(3):
+            if attempt:
+                self.wait(300)
+            reads.append(self.environment.read_number(step["x"], step["y"], step["width"], step["height"], step["filter"]))
+        agreed = [value for value in set(reads) if value is not None and reads.count(value) >= 2]
+        if agreed:
+            self.environment.tally(step["counter"], agreed[0])
+        else:
+            self.environment.trace("Counter skipped", step["id"], "Could not read " + step["counter"] + " (" + ", ".join(str(v) for v in reads) + ")")
+
     def push_deadline(self, milliseconds, owner):
         self.deadlines.append({"end": now() + milliseconds, "owner": owner})
 
@@ -136,7 +171,9 @@ class FlowRunner:
                     matched = True
                     break
                 self.execute_steps(step["steps"], location)
-                self.wait(step["intervalMs"])
+                self.wait_managed(step["intervalMs"])
+            if matched and self.managed:
+                self.managed.close()
         except FlowLoopTimeout as err:
             if err.owner != location:
                 raise
@@ -162,6 +199,7 @@ class FlowRunner:
                 self.wait(20)
         finally:
             env.key("RButton", False)
+        env.wake_pointer()
         for _ in range(step["zoomOut"]):
             self.check()
             env.scroll("Down", 1)
@@ -332,6 +370,8 @@ class FlowRunner:
                 self.camera(step)
             elif action == "placements":
                 self.placements(step)
+            elif action == "rotate":
+                env.drag(step["dx"], step["dy"])
             elif action == "stop":
                 raise FlowStop("Macro stopped by its sequence.")
             elif action == "delay":
@@ -406,6 +446,12 @@ class FlowRunner:
                     branch = step["then"] if self.find(step["target"], 0) else step["otherwise"]
                     if branch != "":
                         self.execute(branch)
+            elif action == "if-number":
+                self.execute_steps(step["thenSteps"] if self.number_at_least(step) else step["elseSteps"], location)
+            elif action == "tally":
+                self.tally(step)
+            elif action == "count-result":
+                self.environment.result(step["result"] == "win")
             elif action == "retry":
                 matched = False
                 for attempt in range(1, step["attempts"] + 1):

@@ -296,6 +296,7 @@
     const secs=engine.seconds||0;setText('runtime',[Math.floor(secs/3600),Math.floor(secs/60)%60,secs%60].map(n=>String(n).padStart(2,'0')).join(':'));
 
     setText('victories',engine.wins||0);setText('defeats',engine.losses||0);
+    {const box=$('run-counters'),counters=engine.counters||{},key=JSON.stringify(counters);if(box&&box.dataset.key!==key){box.dataset.key=key;box.replaceChildren(...Object.entries(counters).map(([name,value])=>{const item=document.createElement('div'),label=document.createElement('span'),total=document.createElement('strong');label.textContent=name;total.textContent=Number(value).toLocaleString();item.append(label,total);return item;}));}}
 
     $('pin-roblox').checked=snapshot?.pinned!==0;$('pin-roblox').disabled=busy||!native||active;
 

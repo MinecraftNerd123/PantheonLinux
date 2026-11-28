@@ -1,0 +1,1164 @@
+{
+ "definition": {
+  "client": {
+   "height": 600,
+   "width": 800
+  },
+  "controls": {
+   "auto-upgrade": "T"
+  },
+  "entry": "main",
+  "game": "anime-adventures",
+  "icon": "progressive",
+  "maps": {
+   "walled-city": {
+    "name": "Walled City (Infinite)"
+   }
+  },
+  "mode": "custom",
+  "name": "Walled City Infinite",
+  "playback": {
+   "autoUpgrade": 1,
+   "autoUpgradeLevels": 1,
+   "placementFeedback": {
+    "closeX": 277,
+    "closeY": 227,
+    "money": "money-error",
+    "observeMs": 1200,
+    "panel": "unit-panel",
+    "retryMs": 600
+   },
+   "targeting": [
+    "First",
+    "Last",
+    "Strongest",
+    "Weakest"
+   ]
+  },
+  "runMode": "repeat",
+  "settings": {},
+  "targets": {
+   "defeat": {
+    "error0": 5,
+    "error1": 5,
+    "height": 100,
+    "kind": "pattern",
+    "name": "Defeat banner",
+    "offsetX": 0,
+    "offsetY": 0,
+    "pattern": "|<>*32$240.zzzw0007zzzzzUzzzzzy1zzzzzw000Ts0zzzzzzzzzzzk00Tzzzzztzzzzzzjzzzzzz001zy3zzzzzzzzzzzy00zzzzzzzzzzzzzzzzzzzzU03zz7zzzzzzzzzzzzU1zzzzzzzzzzzzzzzzzzzzk07zzjzzzzzzzzzzzzk3zzzzzzzzzzzzzzzzzzzzk0Dzzzzzzzzzzk003zw3w00000zk00003z00000Ds0TsTzk000000U000Ty7s00000TU00001y000007s0TU7z000000000003z7k00000D000000w000003s0z03z000000000001zbk00000D000000w000003s0z03z000000000000Trk00000D000000w000003s1y01z000000000000Dzk00000D000000w000003w1y01z0000000000007zk00000D000000w000003w3w00z0000000000003zk00000D000000w000003s3w00zU000000000001zk00000D000000w000003zzs00Tk000000000000zk00000T000001w000007zzs00Tzzy03zz000000Tk00000z000003w00000Dzzk00Dzzy03zz01zk00Tk0Tzzzz01zzzzw07zzzzzzk00Dzzy03zz01zy00Dk0Tzzzz01zzzzw07zzzzzzU007zzy03zz01zz00Dk0Tzzzz01zzzzw07zzzzzzU007zzy03zz01zzU07k0Tzzzz01zzzzw07zzzzzzU007zzy03zz01zzk07k0Tzzzz01zzzzw07zzzzzz0003zzy03zz01zzs07k0Tzzzz01zzzzw07zzzzzz0003zzy03zz01zzw03k0001zz00007zw0000Tzzy0001zzy03zz01zzw03k0000zz00003zw0000Dzzy0001zzy03zz01zzw03k0000Tz00001zw00007zzw0300zzy03zz01zzy03k0000Tz00001zw00007zzw0300zzy03zz01zzy03k0000Tz00001zw00007zzs07U0Tzy03zz01zzy03k0000Tz00001zw00007zzs07U0Tzy03zz01zzy03k0000Tz00001zw00007zzk0DU0Dzy03zz01zzy03k0000Tz00001zw00007zzk0Dk0Dzy03zz01zzy03k0000Tz00001zw00007zzU0Dk07zy03zz01zzw03k0000zz00003zw0000DzzU0Ts07zy03zz01zzw03k0001zz00007zw0000Tzz000003zy03zz01zzw07k0Tzzzz01zzzzw07zzzzz000003zy03zz01zzs07k0Tzzzz01zzzzw07zzzzy000001zy03zz01zzk07k0Tzzzz01zzzzw07zzzzy000001zy03zz01zzU0Dk0Tzzzz01zzzzw07zzzzw000000zy03zz01zz00Dk0Tzzzz01zzzzw07zzzzw000000zy03zz01zy00Tk0Tzzzz01zzzzw07zzzzs000000Ty03zz01zk00Tk0Tzzzz01zzzzw07zzzzs000000Ty03zz000000zk00000z01zzzzw00000Dk000000Dy03zz000000zk00000T01zzzzw000007k0Dzzk0Dy03zz000001zk00000D01zzzzw000003U0Dzzk07y03zz000003zk00000D01zzzzw000003U0Tzzs07y03zz000007zk00000D01zzzzw000003U0Tzzs07y03zz00000Dzk00000D01zzzzw00000300zzzw03y03zz00000Tzk00000D01zzzzw00000300zzzw03y03zz00001zzk00000D01zzzzw00000301zzzy03y03zz00007zzk00000T01zzzzw000007U1zzzy07y03zzU000Tzzs00000TU3zzzzy000007k3zzzz0Dz07zzk007zzzy00000zs7zzzzzU0000Dw7zzzzUzzUDzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzU",
+    "width": 280,
+    "x": 180,
+    "y": 140
+   },
+   "lobby": {
+    "error0": 12,
+    "error1": 12,
+    "height": 55,
+    "kind": "pattern",
+    "name": "Return to lobby button",
+    "offsetX": 0,
+    "offsetY": 0,
+    "pattern": "|<>*134$150.0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000zw00000000000001w03s7k000zz00T0000000y003y07wDs000U7U0zU000001z003606CAQ000U1U1lU000003X003706CAQ000U1rxlzbzzzs3Xnw37DqDgT7XvVkzzlzzzzzw7Xzz37zyDwTzzzXkw708wMX4C60S7X7sS0w1wyTXkk308wM30760Q1n7k60A0MQDVkk108wM30760M0n7U20A0MQDU1VVVswMT3373kkv73264AA8TU1U1lswMz7XzXksz77WC4QC0TU1U3lswMz7XzXlsz77WC4QC0zXlVzlsMMz7XzXkkz73264AD0zXkk3kQ0Mz7XzUs0z3U20A0TVzXsk3kQ0Mz7XzUw1z1k60A0TVzXtw3sS4Mz7Xzky7zVsS8wFzXzzzzzzzzzzzzzzzzznzzzzzz3zzzzzzzzzzzzzzzzzzzzzzzz7zzzzzzzzzzzzzzzzzzzzzzzy7zzzzzzzzzzzzzzzzzzzzzzzzDzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzU",
+    "width": 180,
+    "x": 225,
+    "y": 95
+   },
+   "minimap-arrow": {
+    "error0": 3,
+    "error1": 3,
+    "height": 40,
+    "kind": "pattern",
+    "name": "Minimap arrow exact default",
+    "offsetX": 0,
+    "offsetY": 0,
+    "pattern": "|<>*180$12.zzzzvvtnw7yDzTzzU",
+    "width": 40,
+    "x": 700,
+    "y": 495
+   },
+   "minimap-arrow-wide": {
+    "error0": 15,
+    "error1": 15,
+    "height": 40,
+    "kind": "pattern",
+    "name": "Minimap arrow near default",
+    "offsetX": 0,
+    "offsetY": 0,
+    "pattern": "|<>*180$12.zzzzvvtnw7yDzTzzU",
+    "width": 40,
+    "x": 700,
+    "y": 495
+   },
+   "money-error": {
+    "error0": 20,
+    "error1": 20,
+    "height": 70,
+    "kind": "pattern",
+    "name": "Not enough money",
+    "offsetX": 0,
+    "offsetY": 0,
+    "pattern": "|<>*86$220.zzzzzzzzzzzzzzzzzzzzzzzzzzaw0007zzy3vzzzzzzzzzzzzzzzzzzzzzzzzzyzk000Tzzzjzzzzzzzzzzzzzzzzzzzzszzzzzvj0001zzzzTXz7zzzzzzzzzzzzzzzzz3zzzzzwQ0007zzzzU7sTzzVzzzzzzzzzzzzzwDzzzzzkk000zzzzy0TVzzy7zzzzzzzzzzzzzkzzzzzz70003zzzzs0y7zzsTzzzzzzzzzzzzz3zzzzzsTszyDzzzzU1sTzzVzzzzzzzzzzzzzwDzzzzznznzyzzzzy07Vy3s0zz1yATy3wT7wMkVzz4C7S3sETw7ly80C7k3U1zk1k0Tk3VwD0303zs0EDk3U0z067s00MS0607y0700y067ks0A07zU00Q0601s0MD00UVk0M0Ts0A03k0MT3U0k0Dy001k0M03U0kw83261UsTz1kkQ63UVwA631Uzs84610UEA731UUA0MT3VzwD33sMT27kkwAD3zVksMT23UkwC270s1VwC7zk0ADVVw8T33kkwDy73VVw8T300s0T3k67ksTz01ky67kVwAD33kzsQC67kVwA07k1wD0M63Uzw7b3sMC23UkMAD3zVksM427kkSTUDky1k0S0zs0QDVk0Q03U0kwDy73Vk0MT3U1y0s3w7U1w3zU1ky7U1k0C033kzsQC701VwC07w7UDsT0DkDz073sT0DU0w0AD3zVksS0C6kw0TkS8zly3zkzz0yDXy3zX7wEsyDz7Xly3sP3w3z3wzzzzzzzzzzzzzzzzzzz3zzzzzzyzyzjzzzsDzzzzzzzzzzzzzzzzzzwMDzzzzzzlzVwTzzzUzzzzzzzzzzzzzzzzzzzU1zzzzzzw00003zzy77zzzzzzzzzzzzzzzzzy07zzzzzz00000DzzkQzzzzzzzzzzzzzzzzzzw0zzzzzzw00000zzz3js",
+    "width": 280,
+    "x": 260,
+    "y": 430
+   },
+   "next": {
+    "error0": 0,
+    "error1": 0,
+    "height": 1,
+    "kind": "point",
+    "name": "Defeat Next button",
+    "offsetX": 0,
+    "offsetY": 0,
+    "pattern": "",
+    "width": 1,
+    "x": 320,
+    "y": 395
+   },
+   "next-button": {
+    "error0": 8,
+    "error1": 8,
+    "height": 55,
+    "kind": "pattern",
+    "name": "Defeat Next button",
+    "offsetX": 0,
+    "offsetY": 0,
+    "pattern": "|<>*200$58.zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzwzDzzzzzzzVwTzzztzzy7lzzzzXzzsD7zzzyDzzUQTXvxkDzy1ls37W0TzsX70CAM1zzX4QQQ3szzyC1U1sTXzzss60DVyDzzXkQzw3szzyDVk3X7Uzzsy7UASD3zznwzVvxyDzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzU",
+    "width": 120,
+    "x": 260,
+    "y": 370
+   },
+   "people-panel": {
+    "error0": 8,
+    "error1": 8,
+    "height": 105,
+    "kind": "pattern",
+    "name": "Roblox player list",
+    "offsetX": 0,
+    "offsetY": 0,
+    "pattern": "|<>*103$70.zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzszzzzyzzzzzzUTzzzvzzzzzyQzzzzjzzzzztn3ksCsTzzzzb9aNaPAzzzzy1iPqxhnzzzzsQ1DPqUDzzzzbvyxjPTzzzzyTataNgrzzzztz3ksCsTzzzzzzzzjzzzzzzzzzzyzzzzzzzzzzzvzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzy",
+    "width": 260,
+    "x": 540,
+    "y": 55
+   },
+   "replay": {
+    "error0": 12,
+    "error1": 12,
+    "height": 55,
+    "kind": "pattern",
+    "name": "Replay button",
+    "offsetX": 0,
+    "offsetY": 0,
+    "pattern": "|<>*121$150.0000000000000000000000000000000000000000000000000000000000000003k000000000000000007z00007s00000000000000000Dzk000AQ00000000000000000M0s000AA00000000000000000M0Q000AA00000000000000000M0ATbzAATzsS0000000000000M07zzzwAzzwz0000000000000MS7UQ0wBkXDnU000000000000MS70A0QDU27VU000000000000MS6040AD023VU000000000000M04040AC0333U000000000000M0AC4C4C73130000000000000M0A04C4C73U30000000000000M0A0AC4C73k60000000000000MQA0A0A603k60000000000000MS60A0A703sA0000000000000MS70A0Q3U3MA0000000000000MzDUQ0y7kXMQ0000000000000TnzzwDryzzsM0000000000000DVszwDXwTyks00000000000000000AA0001kk00000000000000000AA0001lk00000000000000000AQ0000lU00000000000000000Ds0000zU000000000000000007s0000T00000000000000000000000000000000U",
+    "width": 180,
+    "x": 395,
+    "y": 95
+   },
+   "reward-click": {
+    "error0": 0,
+    "error1": 0,
+    "height": 1,
+    "kind": "point",
+    "name": "Reward continue click",
+    "offsetX": 0,
+    "offsetY": 0,
+    "pattern": "",
+    "width": 1,
+    "x": 400,
+    "y": 330
+   },
+   "settings-gear": {
+    "error0": 5,
+    "error1": 5,
+    "height": 55,
+    "kind": "pattern",
+    "name": "Settings gear",
+    "offsetX": 0,
+    "offsetY": 0,
+    "pattern": "|<>*102$28.TzzzvzzzzzzzzzzzzzzzwDzzzUTzzy1zzws7DzU00Ty001zs007zUD0Tz1y3zy6MTzsNVzz1y3zs3k7zU00Ty001zs007zzUQzzz3zzzwDzzzkzzzzzzzzzzzzzzzzTzzzu",
+    "width": 60,
+    "x": 0,
+    "y": 545
+   },
+   "skip-wave": {
+    "error0": 10,
+    "error1": 10,
+    "height": 45,
+    "kind": "pattern",
+    "name": "Skip wave Yes button",
+    "offsetX": 0,
+    "offsetY": 0,
+    "pattern": "|<>*80$26.76002GE00X4008Fxw10UUU8M8824220H0kU4lM41A210HUkk7jzsU",
+    "width": 180,
+    "x": 590,
+    "y": 240
+   },
+   "unit-panel": {
+    "error0": 10,
+    "error1": 10,
+    "height": 80,
+    "kind": "pattern",
+    "name": "Unit panel close",
+    "offsetX": 0,
+    "offsetY": 0,
+    "pattern": "|<>*152$22.zzzzzzzzzzzzzzzzzzzzzzzzzzwzDzlszzU7zz0zzw7zzkDzz0zzslzz7XzwzDzzzzzzzzzzzzzzzzzzy",
+    "width": 80,
+    "x": 240,
+    "y": 190
+   },
+   "vote-confirm": {
+    "error0": 6,
+    "error1": 6,
+    "height": 120,
+    "kind": "pattern",
+    "name": "Vote to Lose confirmation",
+    "offsetX": 0,
+    "offsetY": 0,
+    "pattern": "|<>*101$195.zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzztzzDzzzzzzzzzzzzzzXzzzzzzzzzzkDzw7zkTzzXzzzzz7zzzzsDzzzzzzzzzs0zzUzy3zzsDzzzzkTzzzz1zzzzzzzzzy03zw3zUTzz1zzzzy3zzzzsDzzzzzzzzzk0DzkTw7zzsDzzzzkTzzzz1zzzzzzzzzw00zy1z0zzz1zzzzy3zzzzsDzzzzzzzzzUs7zsDsDUzU1y1zz03y3zz1zzw7zUTy1w7Uzz0y1k1s0703zk0D07zsDzy0Dk0z03tw7zw7kQ0700k0Dy01k0Tz1zzU0w07k0Dz0zzUy300M0401zk0A01zsDzs03U0w01zUDzy3Us03U1U07z03U0Dz1zz00Q7jU07s3zzkQ61kD1s7Uzy3s70zsDzkC1UTs7Uy0zzz11kT1sD007zkT1w7z1zy3sA0D007kTzzs8C3sD1s00zy3sDUzsDzkT1k0s00z3zzzU3kT1sD00DzkT1w7z1zy3sD0300Dzzzzw0S1kD1sDzzy3s70zsDzkC1z0MDzzzzzzk7s03s1UyTzk3U0Dz1zz00QC3UyTszzzy0z00T0A01zy0Q01zs01s03U0Q01y3zzzsDw07w1k0Dzs3k0Tz00DU0w07k0DkTzzz1zk1zUD01zz0T07zs01y0DU0z01y3zzzwTzUzz1y0zzy3y3zzU0Dw7z0Ty0zszzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzU",
+    "width": 360,
+    "x": 220,
+    "y": 200
+   },
+   "vote-lose": {
+    "error0": 6,
+    "error1": 6,
+    "height": 340,
+    "kind": "pattern",
+    "name": "Vote to Lose row",
+    "offsetX": 224,
+    "offsetY": 6,
+    "pattern": "|<>*112$120.zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzwznzzzzzzzzzwTzzzzzzsTVzyDzzyDzzwTzzzzzzsTVzyDzzyDzzwTzzzzzzwTXzyDzzyDzzwTzzzzzzwD3Us1kTs1sDwTz1s7kTyD60M10Ds1U7wTw0k70Dy6608107s1U3wTw0E707z6AAAC67wD33wTsMEy67z0ASCC07yD7XwTswE607zUQSCC0DyD7XwTswQ20DzUQACC7zyD33wTsMPW7zzky0C30Dy3U3w0Q0E30Dzkz0S30Dy3k7w0C0k30DztzVzXkTzXsTw0D3sDkTzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzU",
+    "width": 400,
+    "x": 200,
+    "y": 120
+   },
+   "vote-start": {
+    "error0": 5,
+    "error1": 5,
+    "height": 60,
+    "kind": "pattern",
+    "name": "Vote start dialog",
+    "offsetX": 0,
+    "offsetY": 0,
+    "pattern": "|<>*95$140.zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzDnzszzzzXzzzlzzzzzzzzzzXwTyDzzzszzzwTzzzzzzzzzsS7zXzzzyDzzz7zzzzzzzzzz7X1k63z30M21U1zzzzzzzzzlsUA10TUE40U80TzzzzzzzzyAE1003lg008607zzzzzzzzzX4QMsMy3XX2Dlzzzzzzzzzzw376C0DkMssXwTzzzzzzzzzz0llXU7v6CC8z7zzzzzzzzzzsQ0M81w1UU2DkFzzzzzzzzzy7UD30T0QA0Xy4Tzzzzzzzzzny7ss7sDXU8zl7zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzy",
+    "width": 200,
+    "x": 300,
+    "y": 30
+   },
+   "vote-yes": {
+    "error0": 0,
+    "error1": 0,
+    "height": 1,
+    "kind": "point",
+    "name": "Vote start Yes",
+    "offsetX": 0,
+    "offsetY": 0,
+    "pattern": "",
+    "width": 1,
+    "x": 353,
+    "y": 104
+   },
+   "wave-30": {
+    "error0": 8,
+    "error1": 8,
+    "height": 50,
+    "kind": "pattern",
+    "name": "Wave 30 counter",
+    "offsetX": 0,
+    "offsetY": 0,
+    "pattern": "|<>*200$31.zzzzzzzzzzzszwTzk7s3zk1w0zkkw8DwwSD7zkC7XzsD7lzw7XszzVlwTvsMSDswCD7wAD33z07k3zk7s3zyDzbzzzzzzzzzzzk",
+    "width": 100,
+    "x": 190,
+    "y": 45
+   }
+  },
+  "version": 1,
+  "workflows": {
+   "align-camera": {
+    "name": "Align camera",
+    "steps": [
+     {
+      "action": "delay",
+      "durationMs": 1500,
+      "id": "settle",
+      "name": "Let the spawn camera settle"
+     },
+     {
+      "action": "if",
+      "condition": {
+       "checks": [
+        {
+         "state": "present",
+         "target": "people-panel"
+        }
+       ],
+       "operator": "all"
+      },
+      "elseSteps": [],
+      "id": "close-people",
+      "name": "Close the player list",
+      "thenSteps": [
+       {
+        "action": "click-point",
+        "button": "Left",
+        "id": "click-people-x",
+        "x": 563,
+        "y": 73
+       },
+       {
+        "action": "delay",
+        "durationMs": 400,
+        "id": "after-people"
+       }
+      ]
+     },
+     {
+      "action": "call",
+      "id": "setup-camera",
+      "workflow": "camera-top-down"
+     },
+     {
+      "action": "until",
+      "condition": {
+       "checks": [
+        {
+         "state": "present",
+         "target": "minimap-arrow-wide"
+        }
+       ],
+       "operator": "all"
+      },
+      "failure": "error",
+      "id": "coarse",
+      "intervalMs": 100,
+      "name": "Turn until the minimap arrow is near default",
+      "steps": [
+       {
+        "action": "until",
+        "condition": {
+         "checks": [
+          {
+           "state": "present",
+           "target": "minimap-arrow-wide"
+          }
+         ],
+         "operator": "all"
+        },
+        "failure": "continue",
+        "id": "coarse-sweep",
+        "intervalMs": 100,
+        "name": "Sweep one full turn",
+        "steps": [
+         {
+          "action": "rotate",
+          "dx": 60,
+          "dy": 0,
+          "id": "coarse-turn"
+         }
+        ],
+        "timeoutMs": 40000
+       },
+       {
+        "action": "if",
+        "condition": {
+         "checks": [
+          {
+           "state": "absent",
+           "target": "minimap-arrow-wide"
+          }
+         ],
+         "operator": "all"
+        },
+        "elseSteps": [],
+        "id": "retry-camera",
+        "name": "Redo the top-down camera if a full turn missed",
+        "thenSteps": [
+         {
+          "action": "call",
+          "id": "redo-camera",
+          "workflow": "camera-top-down"
+         }
+        ]
+       }
+      ],
+      "timeoutMs": 150000
+     },
+     {
+      "action": "until",
+      "condition": {
+       "checks": [
+        {
+         "state": "present",
+         "target": "minimap-arrow"
+        }
+       ],
+       "operator": "all"
+      },
+      "failure": "error",
+      "id": "fine",
+      "intervalMs": 100,
+      "name": "Turn until the minimap arrow is exact",
+      "steps": [
+       {
+        "action": "rotate",
+        "dx": 10,
+        "dy": 0,
+        "id": "fine-turn"
+       }
+      ],
+      "timeoutMs": 30000
+     },
+     {
+      "action": "rotate",
+      "dx": 15,
+      "dy": 0,
+      "id": "center"
+     }
+    ]
+   },
+   "camera-top-down": {
+    "name": "Top-down camera",
+    "steps": [
+     {
+      "action": "camera",
+      "id": "top-down",
+      "tilt": 299,
+      "zoomIn": 40,
+      "zoomOut": 25
+     },
+     {
+      "action": "rotate",
+      "dx": 0,
+      "dy": 400,
+      "id": "steepen"
+     },
+     {
+      "action": "rotate",
+      "dx": -150,
+      "dy": 0,
+      "id": "back-off"
+     }
+    ]
+   },
+   "finish-match": {
+    "name": "Finish match",
+    "steps": [
+     {
+      "action": "wait",
+      "condition": {
+       "checks": [
+        {
+         "state": "present",
+         "target": "defeat"
+        },
+        {
+         "state": "present",
+         "target": "next-button"
+        },
+        {
+         "state": "present",
+         "target": "replay"
+        }
+       ],
+       "operator": "any"
+      },
+      "id": "wait-defeat",
+      "missing": "error",
+      "name": "Wait for the end screen",
+      "timeoutMs": 3600000
+     },
+     {
+      "action": "if",
+      "condition": {
+       "checks": [
+        {
+         "state": "present",
+         "target": "defeat"
+        },
+        {
+         "state": "present",
+         "target": "next-button"
+        }
+       ],
+       "operator": "any"
+      },
+      "elseSteps": [],
+      "id": "on-defeat",
+      "name": "Count the result and gems on the Defeat screen",
+      "thenSteps": [
+       {
+        "action": "if-number",
+        "elseSteps": [
+         {
+          "action": "count-result",
+          "id": "count-loss",
+          "result": "loss"
+         }
+        ],
+        "filter": "none",
+        "height": 32,
+        "id": "reached-30",
+        "min": 30,
+        "thenSteps": [
+         {
+          "action": "count-result",
+          "id": "count-win",
+          "result": "win"
+         }
+        ],
+        "width": 120,
+        "x": 150,
+        "y": 52
+       },
+       {
+        "action": "tally",
+        "counter": "Gems",
+        "filter": "light",
+        "height": 26,
+        "id": "count-gems",
+        "width": 86,
+        "x": 112,
+        "y": 80
+       }
+      ]
+     },
+     {
+      "action": "until",
+      "condition": {
+       "checks": [
+        {
+         "state": "present",
+         "target": "replay"
+        }
+       ],
+       "operator": "all"
+      },
+      "failure": "error",
+      "id": "to-replay",
+      "intervalMs": 900,
+      "name": "Click through the end screens",
+      "steps": [
+       {
+        "action": "if",
+        "condition": {
+         "checks": [
+          {
+           "state": "present",
+           "target": "defeat"
+          },
+          {
+           "state": "present",
+           "target": "next-button"
+          }
+         ],
+         "operator": "any"
+        },
+        "elseSteps": [
+         {
+          "action": "click-point",
+          "button": "Left",
+          "id": "click-reward",
+          "x": 400,
+          "y": 330
+         }
+        ],
+        "id": "next-if-defeat",
+        "name": "Click Next",
+        "thenSteps": [
+         {
+          "action": "click-point",
+          "button": "Left",
+          "id": "click-next",
+          "x": 320,
+          "y": 395
+         }
+        ]
+       }
+      ],
+      "timeoutMs": 90000
+     },
+     {
+      "action": "click",
+      "button": "Left",
+      "id": "click-replay",
+      "missing": "error",
+      "target": "replay",
+      "timeoutMs": 5000
+     },
+     {
+      "action": "until",
+      "condition": {
+       "checks": [
+        {
+         "state": "absent",
+         "target": "replay"
+        }
+       ],
+       "operator": "all"
+      },
+      "failure": "continue",
+      "id": "after-replay",
+      "intervalMs": 500,
+      "name": "Wait for Replay to go away",
+      "steps": [],
+      "timeoutMs": 20000
+     }
+    ]
+   },
+   "force-lose": {
+    "name": "Vote to lose until the match ends",
+    "steps": [
+     {
+      "action": "retry",
+      "attempts": 8,
+      "condition": {
+       "checks": [
+        {
+         "state": "present",
+         "target": "defeat"
+        },
+        {
+         "state": "present",
+         "target": "next-button"
+        },
+        {
+         "state": "present",
+         "target": "replay"
+        }
+       ],
+       "operator": "any"
+      },
+      "failure": "error",
+      "id": "vote-until-end",
+      "intervalMs": 1000,
+      "name": "Vote to lose until an end screen shows",
+      "steps": [
+       {
+        "action": "call",
+        "id": "attempt",
+        "workflow": "vote-lose"
+       }
+      ],
+      "timeoutMs": 10000
+     }
+    ]
+   },
+   "main": {
+    "name": "Main sequence",
+    "steps": [
+     {
+      "action": "call",
+      "id": "start",
+      "workflow": "start-match"
+     },
+     {
+      "action": "call",
+      "id": "place",
+      "workflow": "place-units"
+     },
+     {
+      "action": "until",
+      "condition": {
+       "checks": [
+        {
+         "state": "present",
+         "target": "wave-30"
+        },
+        {
+         "state": "present",
+         "target": "defeat"
+        },
+        {
+         "state": "present",
+         "target": "next-button"
+        },
+        {
+         "state": "present",
+         "target": "replay"
+        }
+       ],
+       "operator": "any"
+      },
+      "failure": "continue",
+      "id": "wait-early",
+      "intervalMs": 2000,
+      "name": "Wait for wave 30 (first 12 minutes)",
+      "steps": [
+       {
+        "action": "call",
+        "id": "skip-early",
+        "workflow": "skip-wave"
+       }
+      ],
+      "timeoutMs": 720000
+     },
+     {
+      "action": "until",
+      "condition": {
+       "checks": [
+        {
+         "state": "present",
+         "target": "wave-30"
+        },
+        {
+         "state": "present",
+         "target": "defeat"
+        },
+        {
+         "state": "present",
+         "target": "next-button"
+        },
+        {
+         "state": "present",
+         "target": "replay"
+        }
+       ],
+       "operator": "any"
+      },
+      "failure": "continue",
+      "id": "wait-wave",
+      "intervalMs": 2000,
+      "name": "Wait for wave 30 or a wave counter of 31+ (forced at 25 minutes)",
+      "steps": [
+       {
+        "action": "call",
+        "id": "skip",
+        "workflow": "skip-wave"
+       },
+       {
+        "action": "if-number",
+        "elseSteps": [],
+        "filter": "none",
+        "height": 32,
+        "id": "wave-guard",
+        "min": 31,
+        "thenSteps": [
+         {
+          "action": "call",
+          "id": "guard-lose",
+          "workflow": "force-lose"
+         }
+        ],
+        "width": 120,
+        "x": 150,
+        "y": 52
+       }
+      ],
+      "timeoutMs": 780000
+     },
+     {
+      "action": "if",
+      "condition": {
+       "checks": [
+        {
+         "state": "present",
+         "target": "defeat"
+        },
+        {
+         "state": "present",
+         "target": "next-button"
+        },
+        {
+         "state": "present",
+         "target": "replay"
+        }
+       ],
+       "operator": "any"
+      },
+      "elseSteps": [
+       {
+        "action": "call",
+        "id": "lose-now",
+        "workflow": "force-lose"
+       }
+      ],
+      "id": "lose",
+      "name": "Vote to lose unless the match already ended",
+      "thenSteps": []
+     },
+     {
+      "action": "call",
+      "id": "finish",
+      "workflow": "finish-match"
+     }
+    ]
+   },
+   "place-units": {
+    "name": "Place units",
+    "steps": [
+     {
+      "action": "placements",
+      "fallback": "error",
+      "id": "place",
+      "route": "walled-city"
+     }
+    ]
+   },
+   "recover": {
+    "name": "Recover after an error",
+    "steps": [
+     {
+      "action": "if",
+      "condition": {
+       "checks": [
+        {
+         "state": "present",
+         "target": "unit-panel"
+        }
+       ],
+       "operator": "all"
+      },
+      "elseSteps": [],
+      "id": "close-panel",
+      "name": "Close an open unit panel",
+      "thenSteps": [
+       {
+        "action": "click-point",
+        "button": "Left",
+        "id": "click-panel-x",
+        "x": 277,
+        "y": 227
+       },
+       {
+        "action": "delay",
+        "durationMs": 300,
+        "id": "after-panel-x"
+       }
+      ]
+     },
+     {
+      "action": "if",
+      "condition": {
+       "checks": [
+        {
+         "state": "present",
+         "target": "vote-start"
+        },
+        {
+         "state": "present",
+         "target": "defeat"
+        },
+        {
+         "state": "present",
+         "target": "next-button"
+        },
+        {
+         "state": "present",
+         "target": "replay"
+        }
+       ],
+       "operator": "any"
+      },
+      "elseSteps": [
+       {
+        "action": "call",
+        "id": "end-match",
+        "workflow": "force-lose"
+       }
+      ],
+      "id": "in-match",
+      "name": "End the match if one is running",
+      "thenSteps": []
+     }
+    ]
+   },
+   "skip-wave": {
+    "name": "Skip wave",
+    "steps": [
+     {
+      "action": "if",
+      "condition": {
+       "checks": [
+        {
+         "state": "present",
+         "target": "skip-wave"
+        }
+       ],
+       "operator": "all"
+      },
+      "elseSteps": [],
+      "id": "skip-if-shown",
+      "name": "Vote to skip the wave",
+      "thenSteps": [
+       {
+        "action": "click-point",
+        "button": "Left",
+        "id": "click-skip",
+        "x": 638,
+        "y": 263
+       },
+       {
+        "action": "delay",
+        "durationMs": 1000,
+        "id": "after-skip"
+       }
+      ]
+     }
+    ]
+   },
+   "start-match": {
+    "name": "Start match",
+    "steps": [
+     {
+      "action": "until",
+      "condition": {
+       "checks": [
+        {
+         "state": "present",
+         "target": "vote-start"
+        }
+       ],
+       "operator": "all"
+      },
+      "failure": "continue",
+      "id": "reach-vote",
+      "intervalMs": 1000,
+      "name": "Get to the vote screen",
+      "steps": [
+       {
+        "action": "if",
+        "condition": {
+         "checks": [
+          {
+           "state": "present",
+           "target": "unit-panel"
+          }
+         ],
+         "operator": "all"
+        },
+        "elseSteps": [],
+        "id": "close-panel",
+        "name": "Close an open unit panel",
+        "thenSteps": [
+         {
+          "action": "click-point",
+          "button": "Left",
+          "id": "click-panel-x",
+          "x": 277,
+          "y": 227
+         },
+         {
+          "action": "delay",
+          "durationMs": 300,
+          "id": "after-panel-x"
+         }
+        ]
+       },
+       {
+        "action": "if",
+        "condition": {
+         "checks": [
+          {
+           "state": "present",
+           "target": "defeat"
+          },
+          {
+           "state": "present",
+           "target": "next-button"
+          },
+          {
+           "state": "present",
+           "target": "replay"
+          }
+         ],
+         "operator": "any"
+        },
+        "elseSteps": [],
+        "id": "finish-if-shown",
+        "name": "Finish the previous match if its end screen is open",
+        "thenSteps": [
+         {
+          "action": "call",
+          "id": "finish-previous",
+          "workflow": "finish-match"
+         }
+        ]
+       }
+      ],
+      "timeoutMs": 300000
+     },
+     {
+      "action": "call",
+      "id": "align",
+      "workflow": "align-camera"
+     },
+     {
+      "action": "until",
+      "condition": {
+       "checks": [
+        {
+         "state": "absent",
+         "target": "vote-start"
+        }
+       ],
+       "operator": "all"
+      },
+      "failure": "continue",
+      "id": "vote-yes",
+      "intervalMs": 1500,
+      "name": "Vote Yes until the match starts",
+      "steps": [
+       {
+        "action": "click-point",
+        "button": "Left",
+        "id": "click-yes",
+        "x": 353,
+        "y": 104
+       }
+      ],
+      "timeoutMs": 40000
+     },
+     {
+      "action": "delay",
+      "durationMs": 3000,
+      "id": "match-starting",
+      "name": "Let the match start"
+     },
+     {
+      "action": "until",
+      "condition": {
+       "checks": [
+        {
+         "state": "present",
+         "target": "skip-wave"
+        }
+       ],
+       "operator": "all"
+      },
+      "failure": "continue",
+      "id": "skip-shown",
+      "intervalMs": 300,
+      "name": "Wait for Skip Wave",
+      "steps": [],
+      "timeoutMs": 8000
+     },
+     {
+      "action": "call",
+      "id": "skip-first",
+      "workflow": "skip-wave"
+     }
+    ]
+   },
+   "vote-lose": {
+    "name": "Vote to lose (one attempt)",
+    "steps": [
+     {
+      "action": "if",
+      "condition": {
+       "checks": [
+        {
+         "state": "absent",
+         "target": "vote-lose"
+        }
+       ],
+       "operator": "all"
+      },
+      "elseSteps": [],
+      "id": "open-menu",
+      "name": "Open settings and scroll to Vote to Lose",
+      "thenSteps": [
+       {
+        "action": "click",
+        "button": "Left",
+        "id": "open-settings",
+        "missing": "error",
+        "name": "Open settings",
+        "target": "settings-gear",
+        "timeoutMs": 5000
+       },
+       {
+        "action": "delay",
+        "durationMs": 800,
+        "id": "settings-open"
+       },
+       {
+        "action": "move",
+        "id": "over-panel",
+        "x": 400,
+        "y": 330
+       },
+       {
+        "action": "scroll",
+        "count": 1,
+        "direction": "Up",
+        "id": "to-top",
+        "intervalMs": 0,
+        "ticks": 10
+       },
+       {
+        "action": "delay",
+        "durationMs": 400,
+        "id": "after-top"
+       },
+       {
+        "action": "until",
+        "condition": {
+         "checks": [
+          {
+           "state": "present",
+           "target": "vote-lose"
+          }
+         ],
+         "operator": "all"
+        },
+        "failure": "error",
+        "id": "find-row",
+        "intervalMs": 300,
+        "name": "Scroll to Vote to Lose",
+        "steps": [
+         {
+          "action": "scroll",
+          "count": 1,
+          "direction": "Down",
+          "id": "down",
+          "intervalMs": 0,
+          "ticks": 1
+         }
+        ],
+        "timeoutMs": 15000
+       }
+      ]
+     },
+     {
+      "action": "click",
+      "button": "Left",
+      "id": "click-vote-lose",
+      "missing": "error",
+      "name": "Click Vote to Lose",
+      "target": "vote-lose",
+      "timeoutMs": 3000
+     },
+     {
+      "action": "wait",
+      "condition": {
+       "checks": [
+        {
+         "state": "present",
+         "target": "vote-confirm"
+        }
+       ],
+       "operator": "all"
+      },
+      "id": "wait-confirm",
+      "missing": "error",
+      "name": "Wait for confirmation",
+      "timeoutMs": 5000
+     },
+     {
+      "action": "click-point",
+      "button": "Left",
+      "id": "click-vote",
+      "name": "Click Vote",
+      "x": 321,
+      "y": 344
+     }
+    ]
+   }
+  }
+ },
+ "format": "pantheon-macro",
+ "id": "macro-walled-city-infinite",
+ "minPantheonVersion": "1.0-beta.3",
+ "version": 1
+}
